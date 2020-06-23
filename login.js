@@ -35,7 +35,7 @@ function emailIsValid(email) {
 }
 
 app.post("/auth", function (request, response) {
-	//var username = request.body.username;
+	
 	var password = request.body.password;
 	var email = request.body.email;
 
@@ -77,5 +77,18 @@ app.get("/home", function (request, response) {
 	}
 	response.end();
 });
+app.get('/logout', function(req, res, next) {
+	if (req.session) {
+	  // delete session object
+	  req.session.destroy(function(err) {
+		if(err) {
+		  return next(err);
+		} else {
+		  return res.redirect('/');
+		}
+	  });
+	}
+  });
+  
 
 app.listen(3000);
